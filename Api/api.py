@@ -13,7 +13,7 @@ CLASS_NAMES = ["Ishan", "Vinuwara", "Ridmika"]
 def load_model():
     global MODEL
     if MODEL is None:
-        MODEL = tf.keras.models.load_model("models")
+        MODEL = tf.keras.models.load_model("model")
 
 def read_file_as_image(data) -> np.ndarray:
     image = Image.open(BytesIO(data))
