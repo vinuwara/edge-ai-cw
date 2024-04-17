@@ -22,7 +22,7 @@ def read_file_as_image(data) -> np.ndarray:
     image = np.array(image)
     return image
 
-@app.post("/")
+@app.post("/model")
 async def predict(
     file: UploadFile = File(...)
 ):

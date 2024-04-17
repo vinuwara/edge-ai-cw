@@ -3,3 +3,5 @@ uvicorn
 numpy
 tensorflow
 Pillow
+pip install Flask
+pip install Werkzeug
