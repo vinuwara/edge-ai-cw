@@ -10,7 +10,7 @@ This project aims to develop a security and surveillance system using edge AI te
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 - Real-time surveillance using a Raspberry Pi camera module
@@ -29,3 +29,11 @@ pip install -r requirements.txt
 ## Usage
 1. Configure the system settings in `config.yaml`.
 2. Run the main script:
+
+## Contributing
+- Vinuwara Ronath	
+- Ridmika Hasaranga
+- Ishan Fernando
+- Dilini Amarasinghe
+- Maneth Adhikari
+
