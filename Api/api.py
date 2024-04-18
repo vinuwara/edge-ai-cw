@@ -6,7 +6,7 @@ import tensorflow as tf
 
 app = Flask(__name__)
 
-MODEL = tf.keras.models.load_model("model")
+MODEL = tf.keras.models.load_model("Model")
 
 CLASS_NAMES = ["Ishan", "Ridmika", "Vinuwawra"]
 
