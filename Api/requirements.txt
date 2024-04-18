@@ -1,7 +1,4 @@
-fastapi
-uvicorn
+flask
 numpy
+pillow
 tensorflow
-Pillow
-pip install Flask
-pip install Werkzeug

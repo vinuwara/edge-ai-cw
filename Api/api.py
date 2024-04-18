@@ -1,43 +1,43 @@
-from fastapi import FastAPI, File, UploadFile
+from flask import Flask, request, jsonify
+import numpy as np
 from io import BytesIO
 from PIL import Image
 import tensorflow as tf
-import numpy as np
-from mangum import Mangum
 
-app = FastAPI()
+app = Flask(__name__)
 
-MODEL = None
-CLASS_NAMES = ["Ishan", "Vinuwara", "Ridmika"]
+MODEL = tf.keras.models.load_model("model")
 
-def load_model():
-    global MODEL
-    if MODEL is None:
-        MODEL = tf.keras.models.load_model("model")
+CLASS_NAMES = ["Ishan", "Ridmika", "Vinuwawra"]
 
-def read_file_as_image(data) -> np.ndarray:
+@app.route("/ping")
+def ping():
+    return "Hello, I am alive"
+
+def read_file_as_image(data, target_size=(256, 256)) -> np.ndarray:
     image = Image.open(BytesIO(data))
-    # Resize the image to 256x256
-    image = image.resize((256, 256))
+    # Resize the image
+    image = image.resize(target_size)
     image = np.array(image)
     return image
 
-@app.post("/model")
-async def predict(
-    file: UploadFile = File(...)
-):
-    load_model()  # Ensure model is loaded before prediction
-    image = read_file_as_image(await file.read())
+
+@app.route("/prediction", methods=["POST"])
+def predict():
+    file = request.files["file"]
+    image = read_file_as_image(file.read())
     img_batch = np.expand_dims(image, 0)
 
     predictions = MODEL.predict(img_batch)
 
     predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
-    confidence = np.max(predictions[0])*100
-    print(confidence)
+    confidence = np.max(predictions[0])
     if confidence < 50:
-        return {'result': 'Not'}
+        response = {"prediction": "Not"}
     else:
-        return {'result': 'Yes'}
+        response = {"prediction": "Yes"}
 
-handler = Mangum(app, lifespan="auto")
+    return jsonify(response)
+
+if __name__ == "__main__":
+    app.run(port=8000)
