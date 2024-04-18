@@ -6,13 +6,9 @@ import tensorflow as tf
 
 app = Flask(__name__)
 
-MODEL = tf.keras.models.load_model("Model")
+MODEL_FILE = "model.tflite"
 
 CLASS_NAMES = ["Ishan", "Ridmika", "Vinuwawra"]
-
-@app.route("/ping")
-def ping():
-    return "Hello, I am alive"
 
 def read_file_as_image(data, target_size=(256, 256)) -> np.ndarray:
     image = Image.open(BytesIO(data))
@@ -21,21 +17,40 @@ def read_file_as_image(data, target_size=(256, 256)) -> np.ndarray:
     image = np.array(image)
     return image
 
+def load_model(model_file):
+    interpreter = tf.lite.Interpreter(model_path=model_file)
+    interpreter.allocate_tensors()
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+    return interpreter, input_details, output_details
+
+def predict_with_tflite(interpreter, input_details, output_details, image):
+    input_shape = input_details[0]['shape']
+    input_data = np.expand_dims(image, axis=0).astype(np.float32)
+    interpreter.set_tensor(input_details[0]['index'], input_data)
+    interpreter.invoke()
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    return output_data
+
+interpreter, input_details, output_details = load_model(MODEL_FILE)
+
+@app.route("/ping")
+def ping():
+    return "Hello, I am alive"
 
 @app.route("/prediction", methods=["POST"])
 def predict():
     file = request.files["file"]
     image = read_file_as_image(file.read())
-    img_batch = np.expand_dims(image, 0)
 
-    predictions = MODEL.predict(img_batch)
+    predictions = predict_with_tflite(interpreter, input_details, output_details, image)
 
-    predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
     confidence = np.max(predictions[0])
-    if confidence < 50:
-        response = {"prediction": "Not"}
+    print(confidence)
+    if confidence < 0.5:
+        response = {"result": "Not"}
     else:
-        response = {"prediction": "Yes"}
+        response = {"result": "Yes"}
 
     return jsonify(response)
 

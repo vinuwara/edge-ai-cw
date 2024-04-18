@@ -1,6 +1,4 @@
 flask
-keras~=2.10
-tensorflow~=2.10
 numpy
 pillow
-
+tensorflow
