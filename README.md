@@ -34,6 +34,9 @@ pip install -r requirements.txt
 ## UI
 ![Screenshot 2024-04-19 173921](https://github.com/vinuwara/edge-ai-cw/assets/100549890/f624ef05-5e0e-45d5-9dd1-b69f3149b602)
 
+## Hardware
+![WhatsApp Image 2024-04-19 at 18 00 42_98892ef9](https://github.com/vinuwara/edge-ai-cw/assets/100549890/2cc23e8b-b211-4787-a920-a1b9d09b2e26)
+
 
 ## Usage
 1. Configure the system settings in `config.yaml`.
