@@ -3,7 +3,6 @@
 
 
 ## Introduction
-This project aims to develop a security and surveillance system using edge AI technologies. The system utilizes a Raspberry Pi board equipped with a camera module, microphone, and door sensor to monitor and secure a physical space. Edge AI algorithms analyze video and audio inputs for security threats and trigger alerts when unauthorized access is detected. The project also integrates cloud-based services for model training and data storage.
 ![image](https://github.com/vinuwara/edge-ai-cw/assets/100549890/52717642-9ca8-4443-bd56-216fe973553d)
 
 
