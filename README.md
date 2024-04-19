@@ -12,6 +12,8 @@ This project aims to develop a security and surveillance system using edge AI te
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
+- [UI](#ui)
+- [Hardware](#hardware)
 - [Usage](#usage)
 - [Contributing](#contributing)
 
@@ -29,6 +31,10 @@ git clone https://github.com/vinuwara/edge-ai-cw.git
 
 2. Install dependencies:
 pip install -r requirements.txt
+
+## UI
+![Screenshot 2024-04-19 173921](https://github.com/vinuwara/edge-ai-cw/assets/100549890/f624ef05-5e0e-45d5-9dd1-b69f3149b602)
+
 
 ## Usage
 1. Configure the system settings in `config.yaml`.
